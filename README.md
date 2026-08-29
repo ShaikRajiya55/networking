@@ -1,7 +1,7 @@
 # NetForge - Enterprise High-Performance Networking Engine
 
 [![CI Build](https://github.com/ShaikRajiya55/networking/actions/workflows/ci.yml/badge.svg)](https://github.com/ShaikRajiya55/networking/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](#)
 [![Code Lines](https://img.shields.io/badge/LOC-50000%2B-blue.svg)](https://github.com/ShaikRajiya55/networking)
 
 NetForge is a production-grade, asynchronous networking engine and telemetry suite. It features stateful packet inspection, protocol parsing (Ethernet, IPv4/IPv6, TCP, UDP, DNS, HTTP/1.1, HTTP/2, QUIC, WebSocket, TLS), rate limiting, load balancing, real-time metrics streaming, dynamic Web dashboard, and command-line management utilities.
