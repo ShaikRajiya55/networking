@@ -1,0 +1,34 @@
+name: NetForge Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Unit Tests
+      run: npm test
+
+    - name: Verify Line Count (Must be >= 50,000 LOC)
+      run: |
+        TOTAL_LOC=$(git ls-files | xargs wc -l | grep total | awk '{print $1}')
+        echo "Total Lines of Code: $TOTAL_LOC"
+        if [ "$TOTAL_LOC" -lt 50000 ]; then
+          echo "Error: LOC is below 50000 threshold!"
+          exit 1
+        fi
+        echo "LOC Verification Passed!"
