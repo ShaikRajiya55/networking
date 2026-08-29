@@ -10,23 +10,20 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetForge - Enterprise Networking Telemetry Suite</title>
+    <title>NetForge Cyber Command Center</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0b0f19;
-            --bg-secondary: #111827;
-            --card-bg: rgba(17, 24, 39, 0.7);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --accent-cyan: #38bdf8;
-            --accent-indigo: #6366f1;
-            --accent-emerald: #10b981;
-            --accent-rose: #f43f5e;
-            --accent-amber: #f59e0b;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff0055;
+            --neon-purple: #9d00ff;
+            --neon-green: #00ff66;
+            --cyber-bg: #030712;
+            --panel-bg: rgba(11, 19, 38, 0.85);
+            --border-cyan: rgba(0, 243, 255, 0.25);
+            --text-glow: 0 0 10px rgba(0, 243, 255, 0.6);
         }
 
         * {
@@ -36,23 +33,23 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cyber-bg);
+            color: #e2e8f0;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.12) 0%, transparent 45%);
-            background-attachment: fixed;
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: -1px -1px;
+            overflow-x: hidden;
         }
 
         header {
-            background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--card-border);
-            padding: 16px 32px;
+            background: rgba(8, 14, 28, 0.95);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
+            padding: 14px 32px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -61,487 +58,470 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
             z-index: 100;
         }
 
-        .logo-box {
+        .title-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
-        .logo-icon {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        .cyber-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: var(--text-glow);
+            letter-spacing: 2px;
         }
 
-        .logo-icon svg {
-            width: 22px;
-            height: 22px;
-            fill: #fff;
+        .cyber-logo span {
+            color: var(--neon-cyan);
         }
 
-        .logo-title {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #34d399;
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-emerald);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-emerald);
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        .cyber-badge {
+            font-family: 'Share Tech Mono', monospace;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
         }
 
         main {
-            flex: 1;
-            padding: 32px;
-            max-width: 1400px;
+            padding: 24px 32px;
+            max-width: 1500px;
             margin: 0 auto;
-            width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 28px;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.18);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .card-value {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 6px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .card-subtext {
-            font-size: 12px;
-            color: var(--accent-emerald);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .dashboard-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
             gap: 24px;
         }
 
-        @media (max-width: 1024px) {
-            .dashboard-row {
-                grid-template-columns: 1fr;
-            }
+        .cyber-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
         }
 
-        .chart-header {
+        @media (max-width: 1024px) {
+            .cyber-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .cyber-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-cyan);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.05);
+            transition: all 0.2s;
+        }
+
+        .cyber-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.25);
+        }
+
+        .card-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-val {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .layout-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .layout-row { grid-template-columns: 1fr; }
+        }
+
+        .panel-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 18px;
-        }
-
-        .chart-title {
-            font-size: 16px;
-            font-weight: 600;
+            border-bottom: 1px dashed var(--border-cyan);
+            padding-bottom: 8px;
         }
 
         canvas {
             width: 100% !important;
-            height: 240px !important;
+            height: 220px !important;
         }
 
-        .terminal-box {
-            background: #090d16;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            height: 240px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .log-entry {
-            display: flex;
-            gap: 12px;
-            opacity: 0.9;
-        }
-
-        .log-ts { color: var(--text-muted); }
-        .log-allow { color: var(--accent-emerald); }
-        .log-drop { color: var(--accent-rose); }
-        .log-warn { color: var(--accent-amber); }
-
-        .subsystem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .sub-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .sub-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(99, 102, 241, 0.15);
-            color: var(--accent-indigo);
+        .radar-box {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
+            height: 220px;
+            position: relative;
         }
 
-        .sub-info h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .sub-info p {
+        .cyber-terminal {
+            background: #020617;
+            border: 1px solid var(--border-cyan);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Share Tech Mono', monospace;
             font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .action-bar {
+            height: 220px;
+            overflow-y: auto;
+            color: var(--neon-green);
             display: flex;
-            gap: 12px;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .btn {
-            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan));
-            color: #fff;
+        .cmd-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0f172a;
+            border: 1px solid var(--border-cyan);
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .cmd-input {
+            background: transparent;
             border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 14px;
+            outline: none;
+            color: var(--neon-cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        .proto-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+        }
+
+        .proto-tcp { background: rgba(0, 243, 255, 0.2); color: var(--neon-cyan); }
+        .proto-udp { background: rgba(157, 0, 255, 0.2); color: #c084fc; }
+        .proto-http2 { background: rgba(0, 255, 102, 0.2); color: var(--neon-green); }
+        .proto-quic { background: rgba(255, 0, 85, 0.2); color: var(--neon-magenta); }
+
+        .btn-cyber {
+            font-family: 'Orbitron', sans-serif;
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        footer {
-            border-top: 1px solid var(--card-border);
-            padding: 20px 32px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 13px;
+        .btn-cyber:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-cyan);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-box">
-            <div class="logo-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div>
-                <h1 class="logo-title">NetForge Telemetry Suite</h1>
-                <p style="font-size:11px; color:var(--text-muted);">High-Performance Asynchronous Network Engine</p>
-            </div>
+        <div class="title-box">
+            <h1 class="cyber-logo">NET<span>FORGE</span></h1>
+            <span class="cyber-badge">CYBER COMMAND CENTER v2.5</span>
         </div>
 
         <div style="display:flex; align-items:center; gap:20px;">
-            <div class="status-pill">
-                <span class="pulse-dot"></span>
-                <span>SYSTEM ONLINE</span>
+            <div class="cyber-badge" style="border-color:var(--neon-green); color:var(--neon-green)">
+                SYSTEM STATUS: ACTIVE ONLINE
             </div>
-            <div style="font-family:'JetBrains Mono'; font-size:13px; color:var(--text-muted);">
-                Uptime: <span id="uptime-val" style="color:var(--text-main); font-weight:600;">0s</span>
+            <div style="font-family:'Share Tech Mono'; color:#94a3b8; font-size:13px;" id="sys-clock">
+                00:00:00 UTC
             </div>
         </div>
     </header>
 
     <main>
-        <!-- METRICS OVERVIEW -->
-        <div class="metrics-grid">
-            <div class="card">
-                <div class="card-header">
-                    <span>Total Packets Processed</span>
-                    <span style="color:var(--accent-cyan)">⚡ 10GbE</span>
+        <!-- METRICS CARDS -->
+        <div class="cyber-grid">
+            <div class="cyber-card">
+                <div class="card-label">
+                    <span>Datagram Throughput</span>
+                    <span>10 GbE</span>
                 </div>
-                <div class="card-value" id="packets-count">1,849,204</div>
-                <div class="card-subtext">↑ +14.2% vs last 5m interval</div>
+                <div class="card-val" id="val-packets">2,491,080</div>
+                <div style="font-size:12px; color:var(--neon-green); margin-top:6px;">↑ 98.4% Efficiency Rate</div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <span>Current Bandwidth</span>
-                    <span style="color:var(--accent-emerald)">🌐 Dynamic</span>
+            <div class="cyber-card">
+                <div class="card-label">
+                    <span>Bandwidth Rate</span>
+                    <span>MAX CAPACITY</span>
                 </div>
-                <div class="card-value" id="bandwidth-val">842.5 MB/s</div>
-                <div class="card-subtext">Optimal throughput state</div>
+                <div class="card-val" id="val-bw" style="color:var(--neon-cyan)">1,240.8 MB/s</div>
+                <div style="font-size:12px; color:var(--neon-cyan); margin-top:6px;">Dynamic Fiber Array</div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <span>Active TCP/UDP Conns</span>
-                    <span style="color:var(--accent-indigo)">🔗 Pool</span>
+            <div class="cyber-card">
+                <div class="card-label">
+                    <span>Connection Pool</span>
+                    <span>ACTIVE SOCKETS</span>
                 </div>
-                <div class="card-value" id="connections-count">4,096</div>
-                <div class="card-subtext">Connection Pooler 100% healthy</div>
+                <div class="card-val" id="val-conn" style="color:#c084fc">8,192</div>
+                <div style="font-size:12px; color:#c084fc; margin-top:6px;">Reactor Multiplexer OK</div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <span>SPI Firewall Filtered</span>
-                    <span style="color:var(--accent-rose)">🛡️ Stateful</span>
+            <div class="cyber-card">
+                <div class="card-label">
+                    <span>SPI Firewall Drops</span>
+                    <span>THREAT SHIELD</span>
                 </div>
-                <div class="card-value" id="blocked-count">12,840</div>
-                <div class="card-subtext" style="color:var(--accent-rose);">Dropped malicious SYN floods</div>
-            </div>
-        </div>
-
-        <!-- CHARTS & REAL-TIME TRAFFIC TERMINAL -->
-        <div class="dashboard-row">
-            <div class="card">
-                <div class="chart-header">
-                    <h3 class="chart-title">Real-Time Network Traffic & Latency Percentiles (p99)</h3>
-                    <div class="action-bar">
-                        <button class="btn" onclick="triggerBurst()">Simulate Traffic Burst</button>
-                    </div>
-                </div>
-                <canvas id="trafficCanvas"></canvas>
-            </div>
-
-            <div class="card">
-                <div class="chart-header">
-                    <h3 class="chart-title">Live Packet Inspector Console</h3>
-                    <span style="font-size:12px; color:var(--accent-emerald);">Live Stream</span>
-                </div>
-                <div class="terminal-box" id="terminalLog">
-                    <!-- Logs injected dynamically -->
-                </div>
+                <div class="card-val" id="val-drops" style="color:var(--neon-magenta)">19,420</div>
+                <div style="font-size:12px; color:var(--neon-magenta); margin-top:6px;">SYN Floods Neutralized</div>
             </div>
         </div>
 
-        <!-- SUBSYSTEM STATUS MATRIX -->
-        <div class="card">
-            <h3 class="chart-title" style="margin-bottom:16px;">Core Subsystem Readiness Matrix</h3>
-            <div class="subsystem-grid">
-                <div class="sub-card">
-                    <div class="sub-icon">⚡</div>
-                    <div class="sub-info">
-                        <h4>Async Reactor Loop</h4>
-                        <p>Non-blocking Select / Epoll</p>
-                    </div>
+        <!-- THREE COLUMN HIGH TECH DASHBOARD ROW -->
+        <div class="layout-row">
+            <!-- RADAR SCOPE -->
+            <div class="cyber-card">
+                <div class="panel-header">
+                    <span>PACKET RADAR SWEEP</span>
+                    <span>360° RANGE</span>
                 </div>
-                <div class="sub-card">
-                    <div class="sub-icon">📦</div>
-                    <div class="sub-info">
-                        <h4>L2-L7 Protocol Stack</h4>
-                        <p>Eth, IP, TCP, HTTP/2, TLS, QUIC</p>
-                    </div>
+                <div class="radar-box">
+                    <canvas id="radarCanvas"></canvas>
                 </div>
-                <div class="sub-card">
-                    <div class="sub-icon">🛡️</div>
-                    <div class="sub-info">
-                        <h4>SPI Firewall & CIDR</h4>
-                        <p>Token Bucket & Rate Limiter</p>
-                    </div>
+            </div>
+
+            <!-- WAVEFORM TRAFFIC -->
+            <div class="cyber-card">
+                <div class="panel-header">
+                    <span>TRAFFIC WAVEFORM (p99)</span>
+                    <button class="btn-cyber" onclick="burstSim()">BURST TEST</button>
                 </div>
-                <div class="sub-card">
-                    <div class="sub-icon">⚖️</div>
-                    <div class="sub-info">
-                        <h4>Load Balancer Engine</h4>
-                        <p>Weighted Round-Robin & Hash</p>
-                    </div>
+                <canvas id="waveCanvas"></canvas>
+            </div>
+
+            <!-- CYBER CLI TERMINAL -->
+            <div class="cyber-card">
+                <div class="panel-header">
+                    <span>CYBER COMMAND CLI</span>
+                    <span style="color:var(--neon-green)">INTERACTIVE</span>
                 </div>
+                <div class="cyber-terminal" id="cliTerm">
+                    <div>[SYS INIT] NetForge Protocol Stack Loaded</div>
+                    <div>[SYS OK] Socket Multiplexer initialized 0.0.0.0:8000</div>
+                    <div>[CYBER-OPS] Type 'help' or 'status' in terminal below</div>
+                </div>
+                <div class="cmd-line">
+                    <span style="color:var(--neon-cyan)">root@netforge:~#</span>
+                    <input type="text" class="cmd-input" id="cmdInp" placeholder="type 'help', 'status', 'burst'..." onkeydown="handleCmd(event)">
+                </div>
+            </div>
+        </div>
+
+        <!-- PROTOCOL DISTRIBUTION & TOPOLOGY -->
+        <div class="cyber-card">
+            <div class="panel-header">
+                <span>PROTOCOL TRAFFIC DISTRIBUTION MATRIX</span>
+                <span>ACTIVE STACK</span>
+            </div>
+            <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:16px; padding:12px 0;">
+                <div><span class="proto-badge proto-tcp">TCP / IP</span> <strong>45%</strong> (1,120,986 pkts)</div>
+                <div><span class="proto-badge proto-http2">HTTP/2</span> <strong>25%</strong> (622,770 pkts)</div>
+                <div><span class="proto-badge proto-quic">QUIC UDP</span> <strong>15%</strong> (373,662 pkts)</div>
+                <div><span class="proto-badge proto-udp">RAW UDP</span> <strong>10%</strong> (249,108 pkts)</div>
+                <div><span class="proto-badge proto-tcp" style="background:rgba(245,158,11,0.2); color:#f59e0b">DNS / TLS</span> <strong>5%</strong> (124,554 pkts)</div>
             </div>
         </div>
     </main>
 
-    <footer>
-        <p>NetForge Enterprise Networking Engine v1.0.0 &bull; Licensed for Proprietary Internal Infrastructure</p>
-    </footer>
-
     <script>
-        let packetCount = 1849204;
-        let blockedCount = 12840;
-        let connCount = 4096;
-        let uptimeSec = 0;
-
-        // Animate counters
+        // Clock Update
         setInterval(() => {
-            packetCount += Math.floor(Math.random() * 80) + 20;
-            document.getElementById('packets-count').innerText = packetCount.toLocaleString();
-            
-            const bw = (750 + Math.random() * 150).toFixed(1);
-            document.getElementById('bandwidth-val').innerText = bw + ' MB/s';
-            
-            uptimeSec++;
-            const m = Math.floor(uptimeSec / 60);
-            const s = uptimeSec % 60;
-            document.getElementById('uptime-val').innerText = \`\${m}m \${s}s\`;
+            document.getElementById('sys-clock').innerText = new Date().toISOString().substring(11, 19) + ' UTC';
         }, 1000);
 
-        // Terminal Log Streaming
-        const term = document.getElementById('terminalLog');
-        const sampleLogs = [
-            { type: 'log-allow', text: '[TCP SYN] 192.168.1.104:54320 -> 10.0.0.1:443 [ALLOW - TLS 1.3]' },
-            { type: 'log-allow', text: '[HTTP/2] GET /api/v1/telemetry STREAM_ID: 15 [200 OK]' },
-            { type: 'log-drop',  text: '[SPI DROP] 185.220.101.5:38920 -> CIDR Blocked Rule #14' },
-            { type: 'log-allow', text: '[DNS Query] api.netforge.internal -> 10.0.0.53 [RESOLVED]' },
-            { type: 'log-warn',  text: '[RATE LIMIT] Token bucket threshold 92% capacity node_04' },
-            { type: 'log-allow', text: '[QUIC Packet] Connection ID: 0x8F4A21 [STREAM DATA]' }
-        ];
-
-        function addLogEntry(item) {
-            const div = document.createElement('div');
-            div.className = 'log-entry';
-            const now = new Date().toLocaleTimeString();
-            div.innerHTML = \`<span class="log-ts">\${now}</span> <span class="\${item.type}">\${item.text}</span>\`;
-            term.appendChild(div);
-            term.scrollTop = term.scrollHeight;
-            if (term.children.length > 50) term.removeChild(term.firstChild);
-        }
+        let packets = 2491080;
+        let drops = 19420;
 
         setInterval(() => {
-            const idx = Math.floor(Math.random() * sampleLogs.length);
-            addLogEntry(sampleLogs[idx]);
-        }, 1500);
-
-        function triggerBurst() {
-            packetCount += 15000;
-            blockedCount += 320;
-            document.getElementById('packets-count').innerText = packetCount.toLocaleString();
-            document.getElementById('blocked-count').innerText = blockedCount.toLocaleString();
-            addLogEntry({ type: 'log-warn', text: '⚡ TRAFFIC BURST SIMULATION: +15,000 Datagrams Injected' });
-        }
-
-        // Live Canvas Waveform Chart
-        const canvas = document.getElementById('trafficCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = canvas.parentElement.clientWidth - 48;
-            canvas.height = 220;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        let step = 0;
-        function drawChart() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            packets += Math.floor(Math.random() * 120) + 30;
+            document.getElementById('val-packets').innerText = packets.toLocaleString();
             
-            // Grid lines
-            ctx.strokeStyle = 'rgba(255,255,255,0.05)';
-            ctx.lineWidth = 1;
-            for (let y = 40; y < canvas.height; y += 40) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
-            }
+            const bw = (1100 + Math.random() * 250).toFixed(1);
+            document.getElementById('val-bw').innerText = bw + ' MB/s';
+        }, 1000);
 
-            // Waveform path
-            ctx.beginPath();
-            ctx.lineWidth = 3;
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-            gradient.addColorStop(0, '#6366f1');
-            gradient.addColorStop(0.5, '#38bdf8');
-            gradient.addColorStop(1, '#10b981');
-            ctx.strokeStyle = gradient;
+        // RADAR SWEEP ANIMATION
+        const rCanvas = document.getElementById('radarCanvas');
+        const rCtx = rCanvas.getContext('2d');
+        let sweepAngle = 0;
 
-            for (let x = 0; x < canvas.width; x += 5) {
-                const y = 110 + Math.sin((x + step) * 0.02) * 35 + Math.cos((x - step) * 0.03) * 20;
-                if (x === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            }
-            ctx.stroke();
-
-            // Fill gradient under wave
-            ctx.lineTo(canvas.width, canvas.height);
-            ctx.lineTo(0, canvas.height);
-            ctx.closePath();
-            const fillGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            fillGrad.addColorStop(0, 'rgba(99, 102, 241, 0.2)');
-            fillGrad.addColorStop(1, 'rgba(15, 23, 42, 0)');
-            ctx.fillStyle = fillGrad;
-            ctx.fill();
-
-            step += 2;
-            requestAnimationFrame(drawChart);
+        function resizeRadar() {
+            rCanvas.width = rCanvas.parentElement.clientWidth;
+            rCanvas.height = 220;
         }
-        drawChart();
+        window.addEventListener('resize', resizeRadar);
+        resizeRadar();
+
+        function drawRadar() {
+            rCtx.clearRect(0, 0, rCanvas.width, rCanvas.height);
+            const cx = rCanvas.width / 2;
+            const cy = rCanvas.height / 2;
+            const radius = Math.min(cx, cy) - 15;
+
+            // Concentric Radar Rings
+            rCtx.strokeStyle = 'rgba(0, 243, 255, 0.2)';
+            rCtx.lineWidth = 1;
+            for (let r = 0.25; r <= 1.0; r += 0.25) {
+                rCtx.beginPath();
+                rCtx.arc(cx, cy, radius * r, 0, Math.PI * 2);
+                rCtx.stroke();
+            }
+
+            // Radar Axis
+            rCtx.beginPath();
+            rCtx.moveTo(cx - radius, cy); rCtx.lineTo(cx + radius, cy);
+            rCtx.moveTo(cx, cy - radius); rCtx.lineTo(cx, cy + radius);
+            rCtx.stroke();
+
+            // Radar Sweeping Wedge
+            rCtx.beginPath();
+            rCtx.moveTo(cx, cy);
+            rCtx.arc(cx, cy, radius, sweepAngle, sweepAngle + 0.4);
+            rCtx.closePath();
+            const grad = rCtx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+            grad.addColorStop(0, 'rgba(0, 243, 255, 0.4)');
+            grad.addColorStop(1, 'rgba(0, 243, 255, 0)');
+            rCtx.fillStyle = grad;
+            rCtx.fill();
+
+            // Simulated Radar Signals (Blips)
+            const blips = [
+                { r: 0.4, a: 1.2, label: 'Node 1' },
+                { r: 0.7, a: 3.5, label: 'Node 2' },
+                { r: 0.8, a: 5.1, label: 'Proxy' }
+            ];
+
+            blips.forEach(b => {
+                const bx = cx + Math.cos(b.a) * (radius * b.r);
+                const by = cy + Math.sin(b.a) * (radius * b.r);
+                rCtx.beginPath();
+                rCtx.arc(bx, by, 4, 0, Math.PI * 2);
+                rCtx.fillStyle = '#00ff66';
+                rCtx.fill();
+                rCtx.shadowColor = '#00ff66';
+                rCtx.shadowBlur = 10;
+            });
+            rCtx.shadowBlur = 0;
+
+            sweepAngle += 0.03;
+            requestAnimationFrame(drawRadar);
+        }
+        drawRadar();
+
+        // WAVEFORM CHART
+        const wCanvas = document.getElementById('waveCanvas');
+        const wCtx = wCanvas.getContext('2d');
+        let wStep = 0;
+
+        function resizeWave() {
+            wCanvas.width = wCanvas.parentElement.clientWidth;
+            wCanvas.height = 220;
+        }
+        window.addEventListener('resize', resizeWave);
+        resizeWave();
+
+        function drawWave() {
+            wCtx.clearRect(0, 0, wCanvas.width, wCanvas.height);
+            wCtx.beginPath();
+            wCtx.lineWidth = 2;
+            wCtx.strokeStyle = '#00f3ff';
+
+            for (let x = 0; x < wCanvas.width; x += 4) {
+                const y = 110 + Math.sin((x + wStep) * 0.03) * 30 + Math.cos((x - wStep) * 0.04) * 15;
+                if (x === 0) wCtx.moveTo(x, y);
+                else wCtx.lineTo(x, y);
+            }
+            wCtx.stroke();
+            wStep += 3;
+            requestAnimationFrame(drawWave);
+        }
+        drawWave();
+
+        // CYBER TERMINAL CLI LOGIC
+        const term = document.getElementById('cliTerm');
+        const inp = document.getElementById('cmdInp');
+
+        function appendTerm(msg, color='#00ff66') {
+            const d = document.createElement('div');
+            d.style.color = color;
+            d.innerText = msg;
+            term.appendChild(d);
+            term.scrollTop = term.scrollHeight;
+        }
+
+        function handleCmd(e) {
+            if (e.key === 'Enter') {
+                const val = inp.value.trim().toLowerCase();
+                appendTerm('> ' + val, '#00f3ff');
+                inp.value = '';
+
+                if (val === 'help') {
+                    appendTerm('Available commands: status, burst, firewall, ping, clear');
+                } else if (val === 'status') {
+                    appendTerm('[STATUS] All 6 Subsystems Operational | Uptime: ' + Math.floor(performance.now()/1000) + 's');
+                } else if (val === 'burst') {
+                    burstSim();
+                } else if (val === 'firewall') {
+                    appendTerm('[FIREWALL] SPI Active | CIDR Rules: 2,048 | Dropped: ' + drops);
+                } else if (val === 'ping') {
+                    appendTerm('[PING] localhost:8000 RTT = 0.4ms');
+                } else if (val === 'clear') {
+                    term.innerHTML = '';
+                } else {
+                    appendTerm('Unknown command: ' + val + '. Type "help" for options.', '#ff0055');
+                }
+            }
+        }
+
+        function burstSim() {
+            packets += 25000;
+            drops += 500;
+            document.getElementById('val-packets').innerText = packets.toLocaleString();
+            document.getElementById('val-drops').innerText = drops.toLocaleString();
+            appendTerm('⚡ [BURST TEST INJECTED] +25,000 Datagrams Processed', '#ff0055');
+        }
     </script>
 </body>
 </html>`;
@@ -555,20 +535,20 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({
             engine: 'NetForge',
-            packets: 1849204,
-            active_connections: 4096,
-            blocked: 12840,
+            packets: 2491080,
+            active_connections: 8192,
+            blocked: 19420,
             uptime: process.uptime()
         }));
     }
-    // Main UI Dashboard Route
+    // Main Cyber Command Center UI Route
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(DASHBOARD_HTML);
 });
 
 if (require.main === module) {
     server.listen(PORT, () => {
-        console.log(`[NetForge] Telemetry & Management Server running at http://localhost:${PORT}`);
+        console.log(`[NetForge] Cyber Command Center Server running at http://localhost:${PORT}`);
     });
 }
 
